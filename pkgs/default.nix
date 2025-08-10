@@ -6,6 +6,7 @@
 , nixOnDroidChannelURL ? null
 , nixpkgsChannelURL ? null
 , nixOnDroidFlakeURL ? null
+, configFlakeURL ? null
 }:
 
 let
@@ -49,6 +50,7 @@ let
         };
 
         flake.nix-on-droid = urlOptionValue nixOnDroidFlakeURL "NIX_ON_DROID_FLAKE_URL";
+        flake.config = urlOptionValue configFlakeURL "CONFIG_FLAKE_URL";
       };
     };
   };

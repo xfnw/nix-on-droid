@@ -41,6 +41,7 @@ writeText "login-inner" ''
 
       export NIX_SSL_CERT_FILE=${cacert}
 
+      ${if config.build.flake.config == null then ''
       echo
       echo "Nix-on-Droid can be set up with channels or with flakes (still experimental)."
       while [[ -z $USE_FLAKE ]]; do
@@ -138,6 +139,12 @@ writeText "login-inner" ''
     other templates in ${config.build.flake.nix-on-droid}."
         echo
       fi
+      '' else ''
+        echo "Installing first Nix-on-Droid generation..."
+        ${nixCmd} run ${config.build.flake.nix-on-droid} -- switch --flake ${config.build.flake.config}
+
+        . "${config.user.home}/.nix-profile/etc/profile.d/nix-on-droid-session-init.sh"
+      ''}
     fi
   ''}
 
