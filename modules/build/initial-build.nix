@@ -49,6 +49,12 @@ in
           description = "Flake URL for Nix-on-Droid.";
         };
 
+        config = mkOption {
+          type = types.nullOr types.str;
+          default = null;
+          description = "Flake URL for initial configuration.";
+        };
+
         inputOverrides = mkEnableOption "" // {
           description = ''
             Whether to override the standard input URLs in the initial <filename>flake.nix</filename>.
